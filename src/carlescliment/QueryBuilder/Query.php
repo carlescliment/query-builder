@@ -6,8 +6,8 @@ namespace carlescliment\QueryBuilder;
 abstract class Query
 {
 
-	private $query;
-	private $parameters = array();
+	protected $query;
+	protected $parameters = array();
 
 	public function __construct($query_str) {
 		$this->query = $query_str;
