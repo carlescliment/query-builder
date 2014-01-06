@@ -19,9 +19,9 @@ abstract class Query
 
 	public abstract function getResult();
 
-	public abstract function setMaxResults();
+	public abstract function setMaxResults( $max_results );
 
-	public abstract function setFirstResult();
+	public abstract function setFirstResult( $first_result );
 
 	public abstract function getSingleScalarResult();
 }
