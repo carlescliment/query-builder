@@ -92,18 +92,31 @@ class QueryBuilder
     }
 
 
-    public function execute()
+    public function executeIgnoreLimit()
+    {
+        return $this->execute(false);
+    }
+
+
+    public function execute($applyLimit = true)
     {
         $query_str = $this->buildQueryString();
         $query = $this->em->createQuery($query_str);
         $this->setQueryParameters($query);
+        if ($applyLimit) {
+            $this->applyLimitToQuery($query);
+        }
+        return $this->selectClause->isCount() ? $query->getSingleScalarResult() : $query->getResult();
+    }
+
+
+    private function applyLimitToQuery($query) {
         if ($this->limit) {
             $query->setMaxResults($this->limit);
         }
         if ($this->offset) {
             $query->setFirstResult($this->offset);
         }
-        return $this->selectClause->isCount() ? $query->getSingleScalarResult() : $query->getResult();
     }
 
 

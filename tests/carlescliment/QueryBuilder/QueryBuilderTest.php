@@ -517,4 +517,26 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
             ->count('e.id')
             ->execute();
     }
+
+    /**
+     * @test
+     */
+    public function itExecutesQueriesIgnoringLimit() {
+        // Arrange
+        $this->om->expects($this->any())
+            ->method('createQuery')
+            ->will($this->returnValue($this->queryObject));
+
+        // Expect
+        $this->queryObject->expects($this->never())
+            ->method('setMaxResults');
+        $this->queryObject->expects($this->never())
+            ->method('setFirstResult');
+
+        // Act
+        $this->builder->select('e')
+            ->from('carlescliment\Entity\Format', 'e')
+            ->limit(10)
+            ->executeIgnoreLimit();
+    }
 }
