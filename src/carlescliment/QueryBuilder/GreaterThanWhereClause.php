@@ -3,7 +3,7 @@
 namespace carlescliment\QueryBuilder;
 
 
-class LowerThanWhereClause extends ComparisonWhereClause
+class GreaterThanWhereClause extends ComparisonWhereClause
 {
 
     private $strict;
@@ -15,7 +15,7 @@ class LowerThanWhereClause extends ComparisonWhereClause
     }
 
     protected function getSymbol() {
-        return $this->strict ? '<' : '<=';
+        return $this->strict ? '>' : '>=';
     }
 
 }

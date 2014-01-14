@@ -22,8 +22,14 @@ class WhereClauseFactory
         if (preg_match('/lt\((.*)\)/', $value, $matches)) {
             return new LowerThanWhereClause($entity, $matches[1]);
         }
+        if (preg_match('/gt\((.*)\)/', $value, $matches)) {
+            return new GreaterThanWhereClause($entity, $matches[1]);
+        }
         if (preg_match('/leqt\((.*)\)/', $value, $matches)) {
-            return new LowerThanWhereClause($entity, $matches[1], true);
+            return new LowerThanWhereClause($entity, $matches[1], false);
+        }
+        if (preg_match('/geqt\((.*)\)/', $value, $matches)) {
+            return new GreaterThanWhereClause($entity, $matches[1], false);
         }
         return new WhereClause($entity, $value);
     }

@@ -253,6 +253,29 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itFiltersByGreaterThanOperator()
+    {
+        // Arrange
+        $expected_query = 'SELECT f.* FROM format f JOIN customer c ON f.customer_id=c.id WHERE f.created > :f.created';
+
+        // Expect
+        $this->om->expects($this->once())
+            ->method('createQuery')
+            ->with($expected_query)
+            ->will($this->returnValue($this->queryObject));
+
+        // Act
+        $this->builder->select('f.*')
+            ->from('format', 'f')
+            ->join('customer', 'c', 'f.customer_id=c.id')
+            ->where('f.created', 'gt("2013-12-01")')
+            ->execute();
+    }
+
+
+    /**
+     * @test
+     */
     public function itFiltersByLowerOrEqualThanOperator()
     {
         // Arrange
@@ -269,6 +292,29 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
             ->from('format', 'f')
             ->join('customer', 'c', 'f.customer_id=c.id')
             ->where('f.created', 'leqt("2013-12-01")')
+            ->execute();
+    }
+
+
+    /**
+     * @test
+     */
+    public function itFiltersByGreaterOrEqualThanOperator()
+    {
+        // Arrange
+        $expected_query = 'SELECT f.* FROM format f JOIN customer c ON f.customer_id=c.id WHERE f.created >= :f.created';
+
+        // Expect
+        $this->om->expects($this->once())
+            ->method('createQuery')
+            ->with($expected_query)
+            ->will($this->returnValue($this->queryObject));
+
+        // Act
+        $this->builder->select('f.*')
+            ->from('format', 'f')
+            ->join('customer', 'c', 'f.customer_id=c.id')
+            ->where('f.created', 'geqt("2013-12-01")')
             ->execute();
     }
 
