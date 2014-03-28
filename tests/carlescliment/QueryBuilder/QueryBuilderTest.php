@@ -116,7 +116,7 @@ class QueryBuilderTest extends \PHPUnit_Framework_TestCase
     public function itAllowsFilteringByManyParameters()
     {
         // Arrange
-        $expected_query = 'SELECT f.* FROM format f JOIN customer c ON f.customer_id=c.id WHERE c.uid=:c.uid AND f.format=:f.format';
+        $expected_query = 'SELECT f.* FROM format f JOIN customer c ON f.customer_id=c.id WHERE c.uid=:c.uid AND f.format=":f.format"';
 
         // Expect
         $this->om->expects($this->once())

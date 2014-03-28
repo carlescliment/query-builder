@@ -16,7 +16,7 @@ class WhereClause
 
     public function __toString()
     {
-        return $this->entity . '=:' . $this->entity;
+        return $this->entity . '=' . (is_numeric($this->value) ? ":$this->entity" : '":'.$this->entity.'"');
     }
 
 
